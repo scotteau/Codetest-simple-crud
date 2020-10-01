@@ -15,7 +15,7 @@ interface PaginateEvent {
   // templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   template: `
-    <p-paginator [rows]="pageSize" [totalRecords]="data?.length" (onPageChange)="paginate($event)">
+    <p-paginator [rows]="pageSize" [totalRecords]="this.data?.length" (onPageChange)="paginate($event)">
     </p-paginator>
     <ul>
       <li *ngFor="let item of paginatedData">
@@ -33,11 +33,14 @@ export class ListComponent implements OnInit, OnDestroy {
   paginatedData: Item[];
   pageSize = 6;
 
+  paginatorState: PaginateEvent = {
+    first: 0, page: 0, pageCount: 0, rows: this.pageSize
+  };
+
   constructor(private dataService: DataService) {
     this.sub = this.dataService.data$.subscribe((data) => {
       this.data = data;
       this.paginatedData = this.data.slice(0, this.pageSize);
-      console.log(this.paginatedData.length);
     });
   }
 
@@ -46,6 +49,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   handleDeletion(id: number) {
     this.data = this.data.filter((item) => item.post.id !== id);
+    this.paginatedData = this.data.slice(this.paginatorState.first, this.paginatorState.first + this.paginatorState.rows);
   }
 
   ngOnDestroy(): void {
@@ -53,7 +57,7 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   paginate(event: PaginateEvent) {
-    console.log(event);
     this.paginatedData = this.data.slice(event.first, event.first + event.rows);
+    this.paginatorState = event;
   }
 }
