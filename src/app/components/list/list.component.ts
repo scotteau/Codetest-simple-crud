@@ -1,14 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {DataService} from '../../services/data.service';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-list',
   // templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   template: `
     <ng-container *ngIf="data$ | async as data">
-      <p>{{data.length}}</p>
-      <p>{{data[0] | json}}</p>
+      <h1>{{data.length}} items</h1>
+      <ul>
+        <li *ngFor="let item of data">
+          <app-list-item [item]="item"></app-list-item>
+        </li>
+      </ul>
     </ng-container>
 
   `

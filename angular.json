@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "sh-frontend"
+    }
+  },
+  "defaultProject": "sh-frontend",
+  "cli": {
+    "analytics": false
+  }
 }
