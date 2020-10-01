@@ -40,8 +40,12 @@ export class ListComponent implements OnInit, OnDestroy {
   constructor(private dataService: DataService) {
     this.sub = this.dataService.data$.subscribe((data) => {
       this.data = data;
-      this.paginatedData = this.data.slice(0, this.pageSize);
+      this.doPagination();
     });
+  }
+
+  private doPagination() {
+    this.paginatedData = this.data.slice(this.paginatorState.first, this.paginatorState.first + this.paginatorState.rows);
   }
 
   ngOnInit(): void {
@@ -49,7 +53,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   handleDeletion(id: number) {
     this.data = this.data.filter((item) => item.post.id !== id);
-    this.paginatedData = this.data.slice(this.paginatorState.first, this.paginatorState.first + this.paginatorState.rows);
+    this.doPagination();
   }
 
   ngOnDestroy(): void {
@@ -57,7 +61,7 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   paginate(event: PaginateEvent) {
-    this.paginatedData = this.data.slice(event.first, event.first + event.rows);
     this.paginatorState = event;
+    this.doPagination();
   }
 }
