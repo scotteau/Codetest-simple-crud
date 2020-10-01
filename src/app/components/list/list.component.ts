@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DataService} from '../../services/data.service';
 import {Item} from '../../models/interfaces';
-import {SubSink} from 'subsink';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -19,10 +19,10 @@ import {SubSink} from 'subsink';
 export class ListComponent implements OnInit, OnDestroy {
 
   data: Item[];
-  sub = new SubSink();
+  sub: Subscription;
 
   constructor(private dataService: DataService) {
-    this.sub.sink = this.dataService.data$.subscribe((data) => {
+    this.sub = this.dataService.data$.subscribe((data) => {
       this.data = data;
     });
   }
