@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Album, Item, Post, User} from '../models/interfaces';
 import {combineLatest, Observable, throwError} from 'rxjs';
-import {v4 as uuidv4} from 'uuid';
 import {catchError, filter, map} from 'rxjs/operators';
 
 @Injectable({
@@ -24,7 +23,6 @@ export class DataService {
     filter(([item]) => !!item),
     map(([posts, albums, users]) => (
       posts.map((p) => ({
-        id: this.getUUID(),
         post: p,
         album: this.getRandomContent(albums),
         user: this.getRandomContent(users)
@@ -35,11 +33,7 @@ export class DataService {
   constructor(private http: HttpClient) {
   }
 
-  private getUUID() {
-    return uuidv4();
-  }
-
-  private getRandomContent(listOfContent: User[] | Album[]) {
+  private getRandomContent(listOfContent: User[] | Album[]): Album | User {
     const max = listOfContent.length - 1;
     const randomIndex = Math.floor(Math.random() * max);
     return listOfContent[randomIndex];

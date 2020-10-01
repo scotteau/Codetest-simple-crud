@@ -5,7 +5,6 @@ export interface Album {
 }
 
 export interface Item {
-  id: string;
   post: Post;
   user: User;
   album: Album;

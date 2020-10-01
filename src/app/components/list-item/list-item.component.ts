@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {Item} from '../../models/interfaces';
 
 @Component({
@@ -10,12 +10,14 @@ import {Item} from '../../models/interfaces';
       <p>{{item.post.title}}</p>
       <p>{{item.album.title}}</p>
       <p>{{item.user.name}}</p>
+      <button (click)="delete()">delete item</button>
     </div>
   `
 })
 export class ListItemComponent implements OnInit {
 
   @Input() item: Item;
+  @Output() onDeleteItem = new EventEmitter<number>();
 
   constructor() {
   }
@@ -23,4 +25,7 @@ export class ListItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  delete(): void {
+    this.onDeleteItem.emit(this.item.post.id);
+  }
 }
