@@ -69,9 +69,7 @@ export class ListItemComponent implements OnInit, OnDestroy {
   delete($event: MouseEvent): void {
     $event.stopPropagation();
     this.onDeleteItem.emit(this.item.post.id);
-    this.sub.sink = this.dataService.deleteItem(this.item).subscribe((data) => {
-      console.log(data);
-    });
+    this.sub.sink = this.dataService.deleteItem(this.item).subscribe();
   }
 
   blur(): void {

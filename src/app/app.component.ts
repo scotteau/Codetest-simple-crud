@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +15,19 @@ import {Component, OnInit} from '@angular/core';
       <div class="error" *ngIf="errorMessage">
         <span><i class="material-icons">error_outline</i>{{errorMessage}}</span>
       </div>
+
+      <ul class="intro">
+        <li><i class="material-icons-outlined">info</i>
+          <span>
+          Click on title to edit it
+          </span>
+        </li>
+        <li><i class="material-icons-outlined">info</i>
+          <span>
+          Hover & click delete icon to delete item
+          </span>
+        </li>
+      </ul>
 
       <div class="main">
         <app-list (onError)="handleError($event)"></app-list>
