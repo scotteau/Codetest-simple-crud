@@ -1,5 +1,7 @@
 # Simple CRUD Exercise
 
+[Live link - https://codetest-simple-crud.vercel.app/](https://codetest-simple-crud.vercel.app/)
+
 A simple CRUD exercise built with Angular and [JSONPlaceholder API](https://jsonplaceholder.typicode.com/).
 
 - [x] Angular & Typescript
