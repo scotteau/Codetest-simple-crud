@@ -10,14 +10,12 @@
   border-radius: 0.25rem;
 
   &:hover {
-    background: aliceblue;
+    background: $color-blue-tint;
   }
 
   &--selected {
     border-color: $color-blue;
-
   }
-
 
   .left {
     display: flex;
@@ -107,7 +105,7 @@
       border-radius: 10rem;
       color: $color-gray;
       border: 1px solid $color-gray;
-      opacity: 0.5;
+      opacity: 0.2;
 
       &--hidden {
         opacity: 0;
@@ -121,8 +119,6 @@
         opacity: 0.8;
       }
     }
-
-
   }
 
 
