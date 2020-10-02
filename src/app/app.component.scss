@@ -21,6 +21,25 @@
     }
   }
 
+  .error {
+    text-align: center;
+    padding: 0.5rem 0;
+    background: $color-danger;
+
+
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include desc;
+      color: white;
+
+      i {
+        margin-right: 0.25rem;
+      }
+    }
+  }
+
   .main {
     margin-top: 5rem;
   }

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Album, Item, Post, User} from '../models/interfaces';
-import {combineLatest, Observable, throwError} from 'rxjs';
+import {combineLatest, Observable, Subject, throwError} from 'rxjs';
 import {catchError, filter, map} from 'rxjs/operators';
 
 @Injectable({
@@ -12,14 +12,16 @@ export class DataService {
   private albumsUrl = 'https://jsonplaceholder.typicode.com/albums';
   private usersUrl = 'https://jsonplaceholder.typicode.com/users';
 
+  numberOfItems = 30;
+
   posts$ = this.http.get<Post[]>(this.postsUrl).pipe(
-    map((posts) => posts.slice(0, 30)),
-    catchError(this.handleError)
+    map((posts) => posts.slice(0, this.numberOfItems))
   );
-  albums$ = this.http.get<Album[]>(this.albumsUrl).pipe(catchError(this.handleError));
-  users$ = this.http.get<User[]>(this.usersUrl).pipe(catchError(this.handleError));
+  albums$ = this.http.get<Album[]>(this.albumsUrl);
+  users$ = this.http.get<User[]>(this.usersUrl);
 
   data$ = combineLatest([this.posts$, this.albums$, this.users$]).pipe(
+    catchError(this.handleError),
     filter(([item]) => !!item),
     map(([posts, albums, users]) => (
       posts.map((p) => ({
@@ -27,7 +29,7 @@ export class DataService {
         album: this.getRandomContent(albums),
         user: this.getRandomContent(users)
       } as Item))
-    ))
+    )),
   );
 
   constructor(private http: HttpClient) {

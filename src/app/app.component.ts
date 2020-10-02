@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +12,21 @@ import {Component} from '@angular/core';
         </div>
       </header>
 
+      <div class="error" *ngIf="errorMessage">
+        <span><i class="material-icons">error_outline</i>{{errorMessage}}</span>
+      </div>
+
       <div class="main">
-        <app-list></app-list>
+        <app-list (onError)="handleError($event)"></app-list>
       </div>
     </div>
   `
 })
 export class AppComponent {
   title = 'sh-frontend';
+  errorMessage = '';
+
+  handleError(error: string) {
+    this.errorMessage = error;
+  }
 }

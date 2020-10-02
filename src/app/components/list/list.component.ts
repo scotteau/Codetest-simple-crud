@@ -1,7 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, Output, EventEmitter} from '@angular/core';
 import {DataService} from '../../services/data.service';
 import {Item} from '../../models/interfaces';
-import {Subscription} from 'rxjs';
+import {of, Subscription} from 'rxjs';
+import {catchError} from 'rxjs/operators';
 
 interface PaginateEvent {
   first: number;
@@ -31,6 +32,7 @@ interface PaginateEvent {
   `
 })
 export class ListComponent implements OnInit, OnDestroy {
+  @Output() onError = new EventEmitter<string>();
 
   data: Item[];
   sub: Subscription;
@@ -42,7 +44,14 @@ export class ListComponent implements OnInit, OnDestroy {
   };
 
   constructor(private dataService: DataService) {
-    this.sub = this.dataService.data$.subscribe((data) => {
+    this.sub = this.dataService.data$.pipe(
+      catchError((err) => {
+        console.log(err);
+        console.log(err.message);
+        this.onError.emit(err);
+        return of([]);
+      })
+    ).subscribe((data) => {
       this.data = data;
       this.doPagination();
     });
