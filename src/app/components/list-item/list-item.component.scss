@@ -13,6 +13,7 @@
 
     .icon {
       margin-right: 1rem;
+      margin-top: 0.25rem;
     }
 
     .content {
@@ -20,14 +21,45 @@
       flex-direction: column;
       align-items: flex-start;
 
+
+      input {
+        width: 100%;
+        border-radius: 0.25rem;
+
+        &:focus {
+          outline-color: $color-purple-tint;
+        }
+      }
+
       .header {
         @include header;
+        padding: 0.25rem 0;
         margin-bottom: 0.5rem;
+        min-height: 2rem;
+        height: fit-content;
+        width: 100%;
+        min-width: 40rem;
+
+        &--hidden {
+          visibility: hidden;
+          position: absolute;
+        }
       }
 
       .album {
         @include desc;
         color: $color-gray;
+
+        display: flex;
+        align-items: center;
+
+
+        .id {
+          @include desc;
+          font-size: 0.75rem;
+          color: $color-gray;
+          margin-right: 0.5rem;
+        }
       }
     }
 
@@ -44,12 +76,16 @@
       @include body;
       text-align: right;
       padding-right: 0.25rem;
+      margin-top: 0.4rem;
+      white-space: nowrap;
     }
 
     .icon {
       color: $color-gray;
       margin-right: 0.25rem;
       margin-top: 0.25rem;
+      z-index: 5;
+      @include debug;
 
       &:hover {
         cursor: pointer;
@@ -66,7 +102,7 @@
       padding: 0.25rem 0;
       border-radius: 0.25rem;
       border: 1px solid $color-black;
-      z-index: 1;
+      z-index: 10;
 
       top: 3rem;
       right: 0.25rem;

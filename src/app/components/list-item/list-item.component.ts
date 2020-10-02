@@ -6,13 +6,26 @@ import {Item} from '../../models/interfaces';
   // templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.scss'],
   template: `
-    <!--      <input [(ngModel)]="item.post.title" type="text" (keyup.enter)="blur()" #titleInput pInputText disabled>-->
     <div class="left">
       <span class="material-icons-outlined icon">audiotrack</span>
 
       <div class="content">
-        <span class="header">{{item.post.title | titlecase}} - {{item.post.id}}</span>
-        <span class="album">{{item.album.title | uppercase}}</span>
+        <input class="header"
+               [(ngModel)]="item.post.title"
+               type="text"
+               (blur)="blur()"
+               (keyup.enter)="blur()"
+               [ngClass]="!shouldEditTitle && 'header--hidden'"
+               #titleInput
+        >
+
+        <span class="header"
+              [ngClass]="shouldEditTitle && 'header--hidden'">{{item.post.title}}</span>
+        <p class="album">
+          <span class="id">#{{item.post.id}}</span>
+          <span>
+           {{item.album.title | uppercase}}
+        </span></p>
       </div>
 
     </div>
@@ -25,14 +38,13 @@ import {Item} from '../../models/interfaces';
 
       <span class="material-icons-outlined icon" (click)="openPopup()">more_horiz</span>
 
-      <div class="popup" *ngIf="shouldShowPopup">
+      <div class="popup" *ngIf="shouldShowPopup" (clickOutside)="dismiss($event)">
         <ul>
-          <li>Edit</li>
-          <li>Delete</li>
+          <li (click)="startEdit()">Edit</li>
+          <li (click)="delete()">Delete</li>
         </ul>
       </div>
     </div>
-    <!--      <button pButton class="p-button-sm p-button-danger" label="Delete Item" (click)="delete()"></button>-->
   `
 })
 export class ListItemComponent implements OnInit {
@@ -42,6 +54,7 @@ export class ListItemComponent implements OnInit {
   @ViewChild('titleInput') titleInput: ElementRef;
 
   shouldShowPopup = false;
+  shouldEditTitle = false;
 
   constructor() {
   }
@@ -51,13 +64,28 @@ export class ListItemComponent implements OnInit {
 
   delete(): void {
     this.onDeleteItem.emit(this.item.post.id);
+    this.shouldShowPopup = false;
   }
 
   blur(): void {
-    this.titleInput.nativeElement.blur();
+    this.shouldEditTitle = false;
   }
 
   openPopup(): void {
-    this.shouldShowPopup = !this.shouldShowPopup;
+    this.shouldShowPopup = true;
+  }
+
+  dismiss(e: MouseEvent) {
+    e.stopPropagation();
+    console.log('should dismiss');
+  }
+
+  startEdit() {
+    this.shouldEditTitle = true;
+    this.shouldShowPopup = false;
+    setTimeout(() => {
+      this.titleInput.nativeElement.focus();
+      this.titleInput.nativeElement.select();
+    });
   }
 }
