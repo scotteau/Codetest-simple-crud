@@ -34,11 +34,59 @@
   }
 
   .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+
     .name {
       @include body;
       text-align: right;
       padding-right: 0.25rem;
     }
+
+    .icon {
+      color: $color-gray;
+      margin-right: 0.25rem;
+      margin-top: 0.25rem;
+
+      &:hover {
+        cursor: pointer;
+        color: $color-black;
+
+      }
+    }
+
+    .popup {
+      @include debug;
+      position: absolute;
+      width: 8rem;
+      background: white;
+      padding: 0.25rem 0;
+      border-radius: 0.25rem;
+      border: 1px solid $color-black;
+      z-index: 1;
+
+      top: 3rem;
+      right: 0.25rem;
+
+      ul {
+        list-style: none;
+
+        li {
+          padding: 0.25rem 1rem;
+          @include desc;
+
+          &:hover {
+            background: $color-gray;
+            color: white;
+          }
+        }
+
+      }
+    }
+
   }
 
 
