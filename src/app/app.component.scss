@@ -1,0 +1,27 @@
+@import "../styles/shared";
+
+@include reset;
+
+
+.app {
+  header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: $color-black;
+
+    .content {
+      width: 90%;
+      padding: 0.75rem 1.5rem;
+
+      h1 {
+        @include main_header;
+        color: white;
+      }
+    }
+  }
+
+  .main {
+    margin-top: 5rem;
+  }
+}

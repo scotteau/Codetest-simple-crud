@@ -7,14 +7,19 @@
   flex-direction: column;
   align-items: center;
   height: 100%;
-  @include debug;
 
   ul {
     list-style: none;
     width: 90%;
+    margin-top: 2rem;
 
     li {
-      padding: 0.6rem 1rem;
+      padding: 0.6rem 1.5rem;
+
+      &:hover {
+        background: lightcyan;
+        cursor: pointer;
+      }
     }
   }
 }

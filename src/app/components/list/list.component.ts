@@ -15,14 +15,18 @@ interface PaginateEvent {
   // templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   template: `
+
+    <div class="controls">
+      <p-paginator [rows]="pageSize" [totalRecords]="this.data?.length" (onPageChange)="paginate($event)">
+      </p-paginator>
+    </div>
+
     <ul>
       <li *ngFor="let item of paginatedData">
         <app-list-item [item]="item" (onDeleteItem)="handleDeletion($event)"></app-list-item>
       </li>
     </ul>
 
-    <p-paginator [rows]="pageSize" [totalRecords]="this.data?.length" (onPageChange)="paginate($event)">
-    </p-paginator>
 
   `
 })
