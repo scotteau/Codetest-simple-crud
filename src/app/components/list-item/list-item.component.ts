@@ -6,43 +6,46 @@ import {Item} from '../../models/interfaces';
   // templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.scss'],
   template: `
-    <div class="left">
-      <span class="material-icons-outlined icon">audiotrack</span>
+    <div class="listItem" [ngClass]="shouldShowPopup && 'listItem--selected'">
+      <div class="left">
+        <span class="material-icons-outlined icon">audiotrack</span>
 
-      <div class="content">
-        <input class="header"
-               [(ngModel)]="item.post.title"
-               type="text"
-               (blur)="blur()"
-               (keyup.enter)="blur()"
-               [ngClass]="!shouldEditTitle && 'header--hidden'"
-               #titleInput
-        >
+        <div class="content">
+          <input class="header"
+                 [(ngModel)]="item.post.title"
+                 type="text"
+                 (blur)="blur()"
+                 (keyup.enter)="blur()"
+                 [ngClass]="!shouldEditTitle && 'header--hidden'"
+                 [spellcheck]="false"
+                 #titleInput
+          >
 
-        <span class="header"
-              [ngClass]="shouldEditTitle && 'header--hidden'">{{item.post.title}}</span>
-        <p class="album">
-          <span class="id">#{{item.post.id}}</span>
-          <span>
+          <span class="header"
+                [ngClass]="shouldEditTitle && 'header--hidden'">{{item.post.title}}</span>
+          <p class="album">
+            <span class="id">#{{item.post.id}}</span>
+            <span>
            {{item.album.title | uppercase}}
         </span></p>
+        </div>
+
       </div>
 
-    </div>
 
-
-    <div class="right">
+      <div class="right">
         <span class="name">
           {{item.user.name}}
         </span>
 
-      <span class="material-icons-outlined icon" (click)="openPopup()">more_horiz</span>
+        <span class="material-icons-outlined icon" (click)="openPopup()">more_horiz</span>
 
-      <div class="popup" *ngIf="shouldShowPopup" (clickOutside)="dismiss($event)">
-        <ul>
-          <li (click)="startEdit()">Edit</li>
-          <li (click)="delete()">Delete</li>
-        </ul>
+        <div class="popup" *ngIf="shouldShowPopup" (clickOutside)="dismiss($event)">
+          <ul>
+            <li (click)="startEdit()">Edit</li>
+            <li (click)="delete()">Delete</li>
+          </ul>
+        </div>
       </div>
     </div>
   `
@@ -76,7 +79,6 @@ export class ListItemComponent implements OnInit {
   }
 
   dismiss(e: MouseEvent) {
-    e.stopPropagation();
     console.log('should dismiss');
   }
 
@@ -85,7 +87,6 @@ export class ListItemComponent implements OnInit {
     this.shouldShowPopup = false;
     setTimeout(() => {
       this.titleInput.nativeElement.focus();
-      this.titleInput.nativeElement.select();
     });
   }
 }

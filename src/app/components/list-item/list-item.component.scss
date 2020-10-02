@@ -1,10 +1,23 @@
 @import "../../../styles/shared";
 
 
-:host {
+.listItem {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+  border: 1px solid transparent;
+  padding: 0.6rem 1.5rem;
+  padding-bottom: 0.75rem;
+  border-radius: 0.25rem;
+
+  &:hover {
+    background: aliceblue;
+  }
+
+  &--selected {
+    border-color: $color-blue;
+
+  }
 
 
   .left {
@@ -13,7 +26,7 @@
 
     .icon {
       margin-right: 1rem;
-      margin-top: 0.25rem;
+      padding: 0.5rem;
     }
 
     .content {
@@ -27,7 +40,7 @@
         border-radius: 0.25rem;
 
         &:focus {
-          outline-color: $color-purple-tint;
+          outline-color: $color-blue;
         }
       }
 
@@ -83,9 +96,10 @@
     .icon {
       color: $color-gray;
       margin-right: 0.25rem;
-      margin-top: 0.25rem;
+      margin-top: 0.4rem;
       z-index: 5;
-      @include debug;
+      position: relative;
+      top: 0.4rem;
 
       &:hover {
         cursor: pointer;
@@ -97,15 +111,15 @@
     .popup {
       @include debug;
       position: absolute;
-      width: 8rem;
+      width: 9rem;
       background: white;
-      padding: 0.25rem 0;
+      padding: 0.4rem 0;
       border-radius: 0.25rem;
-      border: 1px solid $color-black;
+      border: 1px solid lightgray;
       z-index: 10;
 
-      top: 3rem;
-      right: 0.25rem;
+      top: 3.75rem;
+      right: 0.4rem;
 
       ul {
         list-style: none;
@@ -115,7 +129,7 @@
           @include desc;
 
           &:hover {
-            background: $color-gray;
+            background: $color-blue;
             color: white;
           }
         }
