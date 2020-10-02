@@ -16,7 +16,6 @@ import {Component} from '@angular/core';
         <app-list></app-list>
       </div>
     </div>
-
   `
 })
 export class AppComponent {
