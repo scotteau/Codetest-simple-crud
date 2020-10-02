@@ -1,0 +1,48 @@
+@import "../../../styles/shared";
+
+
+:host {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+
+
+  .left {
+    display: flex;
+    flex-direction: row;
+
+    .icon {
+      margin-right: 1rem;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      .header {
+        @include header;
+        margin-bottom: 0.5rem;
+      }
+
+      .album {
+        @include desc;
+        color: $color-gray;
+      }
+    }
+
+  }
+
+  .right {
+    .name {
+      @include body;
+      padding-right: 0.25rem;
+    }
+  }
+
+
+}
+
+
+
+

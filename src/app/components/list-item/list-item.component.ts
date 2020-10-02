@@ -6,13 +6,24 @@ import {Item} from '../../models/interfaces';
   // templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.scss'],
   template: `
-    <div>
-      <p>{{item.post.title}}</p>
-      <input [(ngModel)]="item.post.title" type="text" (keyup.enter)="blur()" #titleInput>
-      <p>{{item.album.title}}</p>
-      <p>{{item.user.name}}</p>
-      <button (click)="delete()">delete item</button>
+    <!--      <input [(ngModel)]="item.post.title" type="text" (keyup.enter)="blur()" #titleInput pInputText disabled>-->
+    <div class="left">
+      <span class="material-icons-outlined icon">audiotrack</span>
+
+      <div class="content">
+          <span class="header">{{item.post.title | titlecase}} - {{item.post.id}}</span>
+          <span class="album">{{item.album.title | uppercase}}</span>
+        </div>
+
+      </div>
+
+
+    <div class="right">
+        <span class="name">
+          {{item.user.name}}
+        </span>
     </div>
+    <!--      <button pButton class="p-button-sm p-button-danger" label="Delete Item" (click)="delete()"></button>-->
   `
 })
 export class ListItemComponent implements OnInit {

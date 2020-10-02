@@ -15,14 +15,14 @@ interface PaginateEvent {
   // templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
   template: `
-    <p-paginator [rows]="pageSize" [totalRecords]="this.data?.length" (onPageChange)="paginate($event)">
-    </p-paginator>
     <ul>
       <li *ngFor="let item of paginatedData">
-        <p>{{item.post.id}}</p>
         <app-list-item [item]="item" (onDeleteItem)="handleDeletion($event)"></app-list-item>
       </li>
     </ul>
+
+    <p-paginator [rows]="pageSize" [totalRecords]="this.data?.length" (onPageChange)="paginate($event)">
+    </p-paginator>
 
   `
 })
@@ -31,7 +31,7 @@ export class ListComponent implements OnInit, OnDestroy {
   data: Item[];
   sub: Subscription;
   paginatedData: Item[];
-  pageSize = 6;
+  pageSize = 10;
 
   paginatorState: PaginateEvent = {
     first: 0, page: 0, pageCount: 0, rows: this.pageSize

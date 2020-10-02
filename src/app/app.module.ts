@@ -7,6 +7,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {ListItemComponent} from './components/list-item/list-item.component';
 import {FormsModule} from '@angular/forms';
 import {PaginatorModule} from 'primeng/paginator';
+import {InputTextModule} from 'primeng/inputtext';
+import {ButtonModule} from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import {PaginatorModule} from 'primeng/paginator';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    PaginatorModule
+    PaginatorModule,
+    InputTextModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
