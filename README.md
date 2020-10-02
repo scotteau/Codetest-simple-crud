@@ -2,6 +2,8 @@
 
 A simple CRUD exercise built with Angular and [JSONPlaceholder API](https://jsonplaceholder.typicode.com/).
 
+- [ ] Angular & Typescript
+
 ## Get started
 
 Run `npm install` to Install all the dependencies under project directory

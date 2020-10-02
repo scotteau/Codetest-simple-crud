@@ -1,8 +1,9 @@
 import {Component, OnDestroy, OnInit, Output, EventEmitter} from '@angular/core';
 import {DataService} from '../../services/data.service';
 import {Item} from '../../models/interfaces';
-import {of, Subscription} from 'rxjs';
+import {of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
+import {SubSink} from 'subsink';
 
 interface PaginateEvent {
   first: number;
@@ -35,7 +36,7 @@ export class ListComponent implements OnInit, OnDestroy {
   @Output() onError = new EventEmitter<string>();
 
   data: Item[];
-  sub: Subscription;
+  sub = new SubSink();
   paginatedData: Item[];
   pageSize = 10;
 
@@ -44,7 +45,7 @@ export class ListComponent implements OnInit, OnDestroy {
   };
 
   constructor(private dataService: DataService) {
-    this.sub = this.dataService.data$.pipe(
+    this.sub.sink = this.dataService.data$.pipe(
       catchError((err) => {
         console.log(err);
         console.log(err.message);

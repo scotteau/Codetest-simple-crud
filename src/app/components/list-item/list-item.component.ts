@@ -1,12 +1,14 @@
-import {Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import {Item} from '../../models/interfaces';
+import {DataService} from '../../services/data.service';
+import {SubSink} from 'subsink';
 
 @Component({
   selector: 'app-list-item',
   // templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.scss'],
   template: `
-    <div class="listItem" (click)="startEdit()"
+    <div class="listItem"
          (mouseenter)="shouldShowIcon = true"
          (mouseleave)="shouldShowIcon = false">
       <div class="left">
@@ -24,6 +26,7 @@ import {Item} from '../../models/interfaces';
           >
 
           <span class="header title"
+                (click)="startEdit()"
                 [ngClass]="shouldEditTitle && 'header--hidden'">{{item.post.title}}</span>
           <p class="album">
             <span class="id">#{{item.post.id}}</span>
@@ -47,16 +50,17 @@ import {Item} from '../../models/interfaces';
     </div>
   `
 })
-export class ListItemComponent implements OnInit {
+export class ListItemComponent implements OnInit, OnDestroy {
 
   @Input() item: Item;
   @Output() onDeleteItem = new EventEmitter<number>();
   @ViewChild('titleInput') titleInput: ElementRef;
+  sub = new SubSink();
 
   shouldEditTitle = false;
   shouldShowIcon = false;
 
-  constructor() {
+  constructor(private dataService: DataService) {
   }
 
   ngOnInit(): void {
@@ -65,10 +69,16 @@ export class ListItemComponent implements OnInit {
   delete($event: MouseEvent): void {
     $event.stopPropagation();
     this.onDeleteItem.emit(this.item.post.id);
+    this.sub.sink = this.dataService.deleteItem(this.item).subscribe((data) => {
+      console.log(data);
+    });
   }
 
   blur(): void {
     this.shouldEditTitle = false;
+    this.sub.sink = this.dataService.updatePost(this.item.post).subscribe((data) => {
+      this.item = {...this.item, post: data};
+    });
   }
 
 
@@ -77,5 +87,9 @@ export class ListItemComponent implements OnInit {
     setTimeout(() => {
       this.titleInput.nativeElement.focus();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }

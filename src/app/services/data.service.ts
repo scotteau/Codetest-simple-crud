@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Album, Item, Post, User} from '../models/interfaces';
-import {combineLatest, Observable, Subject, throwError} from 'rxjs';
+import {combineLatest, Observable, of, throwError} from 'rxjs';
 import {catchError, filter, map} from 'rxjs/operators';
 
 @Injectable({
@@ -54,5 +54,17 @@ export class DataService {
     }
     console.error(message);
     return throwError(message);
+  }
+
+  updatePost(post: Post): Observable<Post> {
+    return this.http.patch(`${this.postsUrl}/${post.id}`, post).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  deleteItem(item: Item): Observable<any> {
+    // todo - implement method when the deletion logic is more clear
+    console.log(`Should delete item with id - ${item.post.id}`);
+    return of(null);
   }
 }
