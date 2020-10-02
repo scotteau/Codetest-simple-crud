@@ -2,7 +2,16 @@
 
 A simple CRUD exercise built with Angular and [JSONPlaceholder API](https://jsonplaceholder.typicode.com/).
 
-- [ ] Angular & Typescript
+- [x] Angular & Typescript
+- [x] JSONPlaceholder API
+- [x] Rxjs data composition
+- [x] Typescript interfaces
+- [x] Scss variables & mixins
+- [x] Pagination using PrimeNG paginator
+- [x] Delete & Update item
+- [x] Neat look & feel
+- [x] Documentation
+- [x] Pending todo items note left
 
 ## Get started
 
