@@ -12,7 +12,7 @@ export class DataService {
   private albumsUrl = 'https://jsonplaceholder.typicode.com/albums';
   private usersUrl = 'https://jsonplaceholder.typicode.com/users';
 
-  numberOfItems = 8;
+  numberOfItems = 30;
 
   posts$ = this.http.get<Post[]>(this.postsUrl).pipe(
     map((posts) => posts.slice(0, this.numberOfItems))

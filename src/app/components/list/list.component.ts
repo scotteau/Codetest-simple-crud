@@ -38,7 +38,7 @@ export class ListComponent implements OnInit, OnDestroy {
   data: Item[];
   sub = new SubSink();
   paginatedData: Item[];
-  pageSize = 10;
+  pageSize = 8;
 
   paginatorState: PaginateEvent = {
     first: 0, page: 0, pageCount: 0, rows: this.pageSize
