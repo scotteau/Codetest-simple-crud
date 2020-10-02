@@ -6,8 +6,7 @@
   justify-content: space-between;
   flex-direction: row;
   border: 1px solid transparent;
-  padding: 0.6rem 1.5rem;
-  padding-bottom: 0.75rem;
+  padding: 0.6rem 2rem 0.75rem 1.5rem;
   border-radius: 0.25rem;
 
   &:hover {
@@ -59,6 +58,10 @@
         }
       }
 
+      .title {
+        border: 2px solid transparent;
+      }
+
       .album {
         @include desc;
         color: $color-gray;
@@ -94,48 +97,31 @@
     }
 
     .icon {
-      color: $color-gray;
       margin-right: 0.25rem;
       margin-top: 0.4rem;
       z-index: 5;
       position: relative;
       top: 0.4rem;
+      transition: opacity 0.25s ease;
+      padding: 0.15rem;
+      border-radius: 10rem;
+      color: $color-gray;
+      border: 1px solid $color-gray;
+      opacity: 0.5;
+
+      &--hidden {
+        opacity: 0;
+      }
 
       &:hover {
         cursor: pointer;
-        color: $color-black;
-
+        background: $color-danger;
+        border-color: $color-danger;
+        color: white;
+        opacity: 0.8;
       }
     }
 
-    .popup {
-      @include debug;
-      position: absolute;
-      width: 9rem;
-      background: white;
-      padding: 0.4rem 0;
-      border-radius: 0.25rem;
-      border: 1px solid lightgray;
-      z-index: 10;
-
-      top: 3.75rem;
-      right: 0.4rem;
-
-      ul {
-        list-style: none;
-
-        li {
-          padding: 0.25rem 1rem;
-          @include desc;
-
-          &:hover {
-            background: $color-blue;
-            color: white;
-          }
-        }
-
-      }
-    }
 
   }
 

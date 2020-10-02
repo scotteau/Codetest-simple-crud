@@ -6,7 +6,9 @@ import {Item} from '../../models/interfaces';
   // templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.scss'],
   template: `
-    <div class="listItem" [ngClass]="shouldShowPopup && 'listItem--selected'">
+    <div class="listItem" (click)="startEdit()"
+         (mouseenter)="shouldShowIcon = true"
+         (mouseleave)="shouldShowIcon = false">
       <div class="left">
         <span class="material-icons-outlined icon">audiotrack</span>
 
@@ -21,7 +23,7 @@ import {Item} from '../../models/interfaces';
                  #titleInput
           >
 
-          <span class="header"
+          <span class="header title"
                 [ngClass]="shouldEditTitle && 'header--hidden'">{{item.post.title}}</span>
           <p class="album">
             <span class="id">#{{item.post.id}}</span>
@@ -38,14 +40,9 @@ import {Item} from '../../models/interfaces';
           {{item.user.name}}
         </span>
 
-        <span class="material-icons-outlined icon" (click)="openPopup()">more_horiz</span>
+        <span class="material-icons-outlined icon"
+              [ngClass]="!shouldShowIcon && 'icon--hidden'" (click)="delete($event)">delete</span>
 
-        <div class="popup" *ngIf="shouldShowPopup" (clickOutside)="dismiss($event)">
-          <ul>
-            <li (click)="startEdit()">Edit</li>
-            <li (click)="delete()">Delete</li>
-          </ul>
-        </div>
       </div>
     </div>
   `
@@ -56,8 +53,8 @@ export class ListItemComponent implements OnInit {
   @Output() onDeleteItem = new EventEmitter<number>();
   @ViewChild('titleInput') titleInput: ElementRef;
 
-  shouldShowPopup = false;
   shouldEditTitle = false;
+  shouldShowIcon = false;
 
   constructor() {
   }
@@ -65,26 +62,18 @@ export class ListItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  delete(): void {
+  delete($event: MouseEvent): void {
+    $event.stopPropagation();
     this.onDeleteItem.emit(this.item.post.id);
-    this.shouldShowPopup = false;
   }
 
   blur(): void {
     this.shouldEditTitle = false;
   }
 
-  openPopup(): void {
-    this.shouldShowPopup = true;
-  }
-
-  dismiss(e: MouseEvent) {
-    console.log('should dismiss');
-  }
 
   startEdit() {
     this.shouldEditTitle = true;
-    this.shouldShowPopup = false;
     setTimeout(() => {
       this.titleInput.nativeElement.focus();
     });

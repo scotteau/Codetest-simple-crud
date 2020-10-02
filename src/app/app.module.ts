@@ -9,14 +9,12 @@ import {FormsModule} from '@angular/forms';
 import {PaginatorModule} from 'primeng/paginator';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
-import { ClickOutsideDirective } from './directives/click-outside.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListComponent,
     ListItemComponent,
-    ClickOutsideDirective
   ],
   imports: [
     BrowserModule,
